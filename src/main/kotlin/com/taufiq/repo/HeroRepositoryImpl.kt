@@ -2,10 +2,10 @@ package com.taufiq.repo
 
 import com.taufiq.models.Hero
 import com.taufiq.models.HeroResponse
+import com.taufiq.utils.HttpCode.OK
 import com.taufiq.utils.PageUtils.NEXT_PAGE
 import com.taufiq.utils.PageUtils.PREV_PAGE
 import com.taufiq.utils.PageUtils.calculatePage
-import io.ktor.http.*
 
 class HeroRepositoryImpl : HeroRepository {
     override val heroes: Map<Int, List<Hero>> by lazy {
@@ -401,7 +401,7 @@ class HeroRepositoryImpl : HeroRepository {
     override suspend fun getAllHeroes(page: Int): HeroResponse =
         HeroResponse(
             status = true,
-            response = HttpStatusCode.OK.toString(),
+            response = OK.value.toString(),
             message = "Successfully retrieved heroes!",
             prevPage = calculatePage(page)[PREV_PAGE],
             nextPage = calculatePage(page)[NEXT_PAGE],
@@ -411,7 +411,7 @@ class HeroRepositoryImpl : HeroRepository {
 
     override suspend fun searchHero(name: String?): HeroResponse {
         return HeroResponse(
-            status = true, response = HttpStatusCode.OK.toString(), message = "Successfully retrieved heroes!",
+            status = true, response = OK.value.toString(), message = "Successfully retrieved heroes!",
             data = selectedHero(name.orEmpty())
         )
     }
